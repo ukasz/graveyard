@@ -1,0 +1,22 @@
+#!/usr/bin/python
+# Sample usage: 
+#for i in `../run/john -inc -stdout | head -10000 | shuf | head -200`; do echo $i | hashgen pbkdf2-sha512 ; done > crackme
+#
+import sys
+from passlib.hash import pbkdf2_sha256
+from passlib.hash import pbkdf2_sha512
+
+if len(sys.argv) != 2:
+	exit("Usage: hash type as a parameter, password on stdin")
+
+hashtype = sys.argv[1]
+password = str(raw_input())
+hash = ""
+if hashtype == "pbkdf2-sha256":
+	hash = pbkdf2_sha256.encrypt(password)
+if hashtype == "pbkdf2-sha512":
+	hash = pbkdf2_sha512.encrypt(password)
+if hash == "":
+	exit("Unsupported hash type")
+print hash
+
