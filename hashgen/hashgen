@@ -5,6 +5,7 @@
 import sys
 from passlib.hash import pbkdf2_sha256
 from passlib.hash import pbkdf2_sha512
+from passlib.hash import md5_crypt
 
 if len(sys.argv) != 2:
 	exit("Usage: hash type as a parameter, password on stdin")
@@ -16,6 +17,8 @@ if hashtype == "pbkdf2-sha256":
 	hash = pbkdf2_sha256.encrypt(password)
 if hashtype == "pbkdf2-sha512":
 	hash = pbkdf2_sha512.encrypt(password)
+if hashtype == "md5crypt":
+	hash = md5_crypt.encrypt(password)
 if hash == "":
 	exit("Unsupported hash type")
 print hash
